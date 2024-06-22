@@ -7,8 +7,7 @@ import (
 )
 
 func (p *Parameters) Validate() error {
-	ok := true
-	ok = validateSourceDirectory(p.SourceDirectory) && ok
+	ok := validateSourceDirectory(p.SourceDirectory)
 	ok = validateTargetDirectory(p.TargetDirectory) && ok
 
 	if ok {
@@ -18,8 +17,8 @@ func (p *Parameters) Validate() error {
 	}
 }
 
-var windowsPathRegex = regexp.MustCompile("[a-zA-Z]:\\\\(?:([^<>:\"\\/\\\\|?*]*[^<>:\"\\/\\\\|?*.]\\\\|..\\\\)*([^<>:\"\\/\\\\|?*]*[^<>:\"\\/\\\\|?*.]\\\\?|..\\\\))?")
-var linuxPathRegex = regexp.MustCompile("\\/.*")
+var windowsPathRegex = regexp.MustCompile("(([a-zA-Z]:)|(..))\\\\(?:([^<>:\"\\/\\\\|?*]*[^<>:\"\\/\\\\|?*.]\\\\|..\\\\)*([^<>:\"\\/\\\\|?*]*[^<>:\"\\/\\\\|?*.]\\\\?|..\\\\))?")
+var linuxPathRegex = regexp.MustCompile("^(([.]+)?/)([a-zA-Z0-9/])+")
 
 func validateTargetDirectory(value string) bool {
 	if value == "" {
@@ -36,6 +35,7 @@ func validateTargetDirectory(value string) bool {
 }
 
 func validateSourceDirectory(value string) bool {
+	log.Printf("---- %s ", value)
 	if value == "" {
 		log.Printf("ERROR: Parameter --source-directory=<xyz> is mandatory")
 		return false

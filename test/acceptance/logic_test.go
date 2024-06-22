@@ -31,12 +31,10 @@ func Test_parameter_validation(t *testing.T) {
 
 func Test_run(t *testing.T) {
 	fmt.Println("    Given valid parameters")
-	currentDir, _ := os.Getwd()
-
-	targetPath := filepath.Join(currentDir, "..", "resources", "output")
+	targetPath := filepath.Join("..", "resources", "output")
 
 	parameterService := &params.Parameters{
-		SourceDirectory: filepath.Join(currentDir, "..", "resources", "takeout"),
+		SourceDirectory: filepath.Join("..", "resources", "takeout"),
 		TargetDirectory: targetPath,
 	}
 	err := parameterService.Validate()
@@ -72,7 +70,10 @@ func checkFileNotExists(t *testing.T, path string, album string, fileName string
 }
 
 func checkFileExistsWithExifTags(t *testing.T, path string, album string) {
-	file, _ := os.Open(filepath.Join(path, album, "IMG_1078-no-exif.JPG"))
+	file, err := os.Open(filepath.Join(path, album, "IMG_1078-no-exif.JPG"))
+	if err != nil {
+		file, _ = os.Open(filepath.Join(path, album, "IMG_1078-no-exif.jpg"))
+	}
 	defer file.Close()
 	x, _ := exif.Decode(file)
 	dateTimeOriginal, _ := x.Get("DateTimeOriginal")
