@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/rwcarlsen/goexif v0.0.0-20190401172101-9e8deecbddbd
-	github.com/sfomuseum/go-exif-update v0.1.2
+	github.com/sfomuseum/go-exif-update v0.1.3
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.9.0
 )
@@ -21,7 +21,7 @@ require (
 	github.com/go-xmlfmt/xmlfmt v0.0.0-20191208150333-d5b6f63a941b // indirect
 	github.com/golang/geo v0.0.0-20210211234256-740aa86cb551 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	golang.org/x/net v0.7.0 // indirect
+	golang.org/x/net v0.23.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
